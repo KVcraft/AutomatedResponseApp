@@ -1,24 +1,50 @@
 package com.example.automatedresponseapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    EditText etUsername, etPassword;
+    Button btnLogin;
+    TextView tvSignUp, tvForgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        tvSignUp = findViewById(R.id.tvSignUp);
+        tvForgotPassword = findViewById(R.id.tvForgotPassword);
+
+        tvSignUp.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, SignupActivity.class));
+        });
+
+        tvForgotPassword.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, ForgetPasswordActivity.class));
+        });
+
+        btnLogin.setOnClickListener(v -> {
+            String username = etUsername.getText().toString();
+            String password = etPassword.getText().toString();
+
+            if (username.equals("admin") && password.equals("1234")) {
+                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+                // Navigate to Dashboard or Main App Screen
+            } else {
+                Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

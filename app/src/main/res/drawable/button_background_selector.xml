@@ -1,0 +1,21 @@
+<!-- res/drawable/button_background_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#DDDDDD" /> <!-- Pressed color -->
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    <item android:state_hovered="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#000000" /> <!-- Hovered color -->
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- Default color -->
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+</selector>
