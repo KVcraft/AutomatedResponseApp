@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, SignupActivity.class));
         });
 
+
         tvForgotPassword.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, ForgetPasswordActivity.class));
         });
@@ -41,10 +42,15 @@ public class MainActivity extends AppCompatActivity {
 
             if (username.equals("admin") && password.equals("1234")) {
                 Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
-                // Navigate to Dashboard or Main App Screen
+
+                // Navigate to DashboardActivity
+                Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                startActivity(intent);
+
             } else {
                 Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }
