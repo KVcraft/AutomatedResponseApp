@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1F6F9"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ecffc8"
     android:padding="16dp">
 
     <!-- Title -->
@@ -12,97 +12,152 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dashboard"
-        android:textSize="26sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
 
-    <!-- Air Pressure -->
-    <TextView
-        android:id="@+id/tvAirPressureLabel"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardAirPressure"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:text="Air Pressure"
-        android:textSize="16sp"
-        android:textStyle="bold"
         android:layout_below="@id/tvDashboardTitle"
-        android:layout_marginTop="24dp" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="30dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp">
 
-    <TextView
-        android:id="@+id/tvPressure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1013 hPa"
-        android:padding="10dp"
-        android:background="@drawable/data_label_bg"
-        android:textSize="18sp"
-        android:textColor="#4CAF50"
-        android:layout_below="@id/tvAirPressureLabel"
-        android:layout_marginBottom="24dp" />
-
-    <!-- Temperature -->
-    <TextView
-        android:id="@+id/tvTemperatureLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Temperature"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_below="@id/tvPressure" />
-
-    <TextView
-        android:id="@+id/tvTemperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="27.5 °C"
-        android:padding="10dp"
-        android:background="@drawable/data_label_bg"
-        android:textSize="18sp"
-        android:textColor="#2196F3"
-        android:layout_below="@id/tvTemperatureLabel" />
-
-    <!-- Tank Frame -->
-
-    <!-- Water Level -->
-
-    <FrameLayout
-        android:id="@+id/tankFrame"
-        android:layout_width="100dp"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="104dp"
-        android:layout_toEndOf="@id/tvDashboardTitle"
-        android:background="@drawable/tank_border">
-
-        <View
-            android:id="@+id/waterLevel"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/water_fill" />
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-    <TextView
-        android:id="@+id/tvWaterLevelLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Water Level"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_below="@id/tankFrame"
-        android:layout_alignStart="@id/tankFrame"
-        android:layout_marginTop="16dp" />
+            <!-- Air Pressure Label -->
+            <TextView
+                android:id="@+id/tvAirPressureLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Air Pressure"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvWaterMM"
-        android:layout_width="wrap_content"
+            <!-- Air Pressure Value -->
+            <TextView
+                android:id="@+id/tvPressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/data_label_bg"
+                android:padding="12dp"
+                android:text="1013 hPa"
+                android:textColor="#4CAF50"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTemperature"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:text="480 mm"
-        android:padding="10dp"
-        android:background="@drawable/data_label_bg"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:layout_below="@id/tvWaterLevelLabel"
-        android:layout_alignStart="@id/tankFrame" />
+        android:layout_marginTop="280dp"
+        android:layout_marginLeft="15dp"
+        android:layout_gravity="center"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Temperature Label -->
+            <TextView
+                android:id="@+id/tvTemperatureLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Temperature"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp" />
+
+            <!-- Temperature Value -->
+            <TextView
+                android:id="@+id/tvTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/data_label_bg"
+                android:padding="12dp"
+                android:text="27.5 °C"
+                android:textColor="#2196F3"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardWaterLevel"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/tvDashboardTitle"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="215dp"
+        android:layout_gravity="center"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+
+            <!-- Tank Frame with Water Level -->
+            <FrameLayout
+                android:id="@+id/tankFrame"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/tank_border">
+
+                <View
+                    android:id="@+id/waterLevel"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/water_fill" />
+            </FrameLayout>
+
+            <!-- Water Level Label -->
+            <TextView
+                android:id="@+id/tvWaterLevelLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Water Level"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp" />
+
+            <!-- Water Level Value -->
+            <TextView
+                android:id="@+id/tvWaterMM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="480 mm"
+                android:padding="12dp"
+                android:background="@drawable/data_label_bg"
+                android:textSize="25sp"
+                android:textColor="#000000" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>
