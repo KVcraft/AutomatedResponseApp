@@ -207,8 +207,8 @@ android:background="#F8F9FA">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnSprinklerOn"
@@ -222,9 +222,26 @@ android:background="#F8F9FA">
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="OFF" />
     </LinearLayout>
 
 </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Door 1"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="start" />
+    <ToggleButton
+        android:id="@+id/toggleDoor1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOn="Close"
+        android:textOff="Open"
+        android:layout_marginBottom="8dp" />
+
+
 </ScrollView>
 
