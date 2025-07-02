@@ -1,5 +1,6 @@
 package com.example.automatedresponseapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -58,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
                         if (enteredUsername.equals(dbUsername) && enteredPassword.equals(dbPassword)) {
                             found = true;
                             Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            return; // stop further checks
+                            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                            startActivity(intent);
+                            finish(); // Optional
+                            return;
                         }
                     }
 

@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "357328296453",
+    "firebase_url": "https://iot-test-53512-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "iot-test-53512",
+    "storage_bucket": "iot-test-53512.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357328296453:android:f822cd645ef845a5ea5a6c",
+        "android_client_info": {
+          "package_name": "com.example.automatedresponseapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO0IvgQDLMrb6ObSeWlW9mvvwMTgDz9CA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357328296453:android:cda577a37d2b5c64ea5a6c",
+        "android_client_info": {
+          "package_name": "com.iot.test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO0IvgQDLMrb6ObSeWlW9mvvwMTgDz9CA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

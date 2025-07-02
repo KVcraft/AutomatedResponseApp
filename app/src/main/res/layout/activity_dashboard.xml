@@ -3,21 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ecffc8"
+    android:background="#ffffff"
     android:padding="16dp">
 
     <!-- Title -->
+
     <TextView
         android:id="@+id/tvDashboardTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="22dp"
         android:text="Dashboard"
-        android:textSize="30sp"
-        android:textStyle="bold"
         android:textColor="#000000"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
+    <!-- Divider Line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tvDashboardTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#BDBDBD" />
     <androidx.cardview.widget.CardView
         android:id="@+id/cardAirPressure"
         android:layout_width="180dp"
@@ -162,16 +172,26 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="395dp"
-        android:layout_height="67dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
-        android:padding="0dp"
-        app:itemIconTint="@color/selector_nav_item"
-        app:itemTextColor="@color/selector_nav_item"
+        android:background="#fdcf35"
+        app:itemIconTint="#000000"
+        app:itemTextColor="#000000"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
+
+    <ImageButton
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="Logout"
+        android:src="@drawable/ic_logout" />
 
 </RelativeLayout>
