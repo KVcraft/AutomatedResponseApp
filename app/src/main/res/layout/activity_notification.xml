@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Toolbar/Title -->
+        <TextView
+            android:id="@+id/tvNotificationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notifications"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp" />
+
+        <!-- Placeholder for notifications -->
+        <TextView
+            android:id="@+id/tvNotificationContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You have no new notifications."
+            android:textSize="16sp" />
+    </LinearLayout>
+</ScrollView>

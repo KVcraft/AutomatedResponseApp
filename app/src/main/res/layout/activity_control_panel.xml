@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Toolbar/Title -->
+    <TextView
+        android:id="@+id/tvControlPanelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Control Panel"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp"/>
+
+    <!-- Placeholder content -->
+    <TextView
+        android:id="@+id/tvControlPanelContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Control panel features will be here."
+        android:textSize="16sp" />
+</LinearLayout>
