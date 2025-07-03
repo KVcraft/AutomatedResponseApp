@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword;
     Button btnLogin;
+    TextView tvForgotPassword, tvSignUp;
+
     DatabaseReference databaseReference;
 
     @Override
@@ -27,18 +30,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize views
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        tvForgotPassword = findViewById(R.id.tvForgotPassword);
+        tvSignUp = findViewById(R.id.tvSignUp);
 
+        // Firebase reference
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
+        // Login button logic
         btnLogin.setOnClickListener(v -> {
             String enteredUsername = etUsername.getText().toString().trim();
             String enteredPassword = etPassword.getText().toString().trim();
-
-            Log.d("LOGIN_DEBUG", "Username: " + enteredUsername);
-            Log.d("LOGIN_DEBUG", "Password: " + enteredPassword);
 
             if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
                 Toast.makeText(this, "Please enter both fields", Toast.LENGTH_SHORT).show();
@@ -54,15 +59,15 @@ public class MainActivity extends AppCompatActivity {
                         String dbUsername = userSnapshot.child("username").getValue(String.class);
                         String dbPassword = userSnapshot.child("password").getValue(String.class);
 
-                        Log.d("LOGIN_DEBUG", "Checking DB username: " + dbUsername);
-
                         if (enteredUsername.equals(dbUsername) && enteredPassword.equals(dbPassword)) {
                             found = true;
                             Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
+                            // Navigate to dashboard
                             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                             startActivity(intent);
-                            finish(); // Optional
-                            return;
+                            finish(); // Close login screen
+                            break;
                         }
                     }
 
@@ -76,6 +81,18 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Database Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+        });
+
+        // Forgot password link
+        tvForgotPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ForgetPasswordActivity.class);
+            startActivity(intent);
+        });
+
+        // Sign up link
+        tvSignUp.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SignupActivity.class);
+            startActivity(intent);
         });
     }
 }
