@@ -1,247 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:padding="16dp"
-android:background="#F8F9FA">
-
-<LinearLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:layout_height="match_parent"
+    android:background="#F8F9FA">
 
-    <!-- Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Control Panel"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:paddingBottom="24dp" />
 
-    <!-- Door Buttons -->
-    <!-- 1 doors -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="Door 1"
-        android:textStyle="bold" />
-
+    <!-- Title Bar with Divider -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvControlTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Control Panel"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Logout"
+                android:padding="8dp"
+                android:src="@drawable/ic_logout" />
+        </LinearLayout>
+
+        <!-- Divider Line Below Title -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="10dp"
+            android:background="#BDBDBD" />
+    </LinearLayout>
+
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/customBottomNav"
+        android:layout_below="@+id/tvControlTitle"
+        android:layout_marginTop="80dp"
+        android:padding="16dp"
+        tools:ignore="NotSibling">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- Door 1 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Door 1"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginTop="12dp" />
+            <ToggleButton
+                android:id="@+id/toggleDoor1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textOn="Open"
+                android:textOff="Close"
+                android:background="@drawable/toggle_button_background"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Door 2 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Door 2"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginTop="12dp" />
+            <ToggleButton
+                android:id="@+id/toggleDoor2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textOn="Open"
+                android:textOff="Close"
+                android:background="@drawable/toggle_button_background"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Door 3 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Door 3"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginTop="12dp" />
+            <ToggleButton
+                android:id="@+id/toggleDoor3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textOn="Open"
+                android:textOff="Close"
+                android:background="@drawable/toggle_button_background"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Door 4 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Door 4"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginTop="12dp" />
+            <ToggleButton
+                android:id="@+id/toggleDoor4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textOn="Open"
+                android:textOff="Close"
+                android:background="@drawable/toggle_button_background"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Door 5 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Door 5"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginTop="12dp" />
+            <ToggleButton
+                android:id="@+id/toggleDoor5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textOn="Open"
+                android:textOff="Close"
+                android:background="@drawable/toggle_button_background"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Sprinklers -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Water Sprinklers"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp" />
+            <ToggleButton
+                android:id="@+id/toggleSprinkler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textOn="ON"
+                android:textOff="OFF"
+                android:background="@drawable/toggle_button_background"
+                android:layout_marginBottom="32dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Fixed Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/customBottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+        android:background="#fdcf35"
         android:gravity="center">
 
-        <Button
-            android:id="@+id/btnDoor1Open"
+        <!-- Dashboard -->
+        <LinearLayout
+            android:id="@+id/nav_dashboard"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Open" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
 
-        <Button
-            android:id="@+id/btnDoor1Close"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_dashboard"
+                android:tint="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dashboard"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Control -->
+        <LinearLayout
+            android:id="@+id/nav_control"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Close" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_control"
+                android:tint="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Control"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Notification -->
+        <LinearLayout
+            android:id="@+id/nav_notification"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_notification"
+                android:tint="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Profile -->
+        <LinearLayout
+            android:id="@+id/nav_profile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_profile"
+                android:tint="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
     </LinearLayout>
-
-    <!-- 2 doors -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Door 2"
-        android:textStyle="bold"
-        android:paddingTop="8dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btnDoor2Open"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Open" />
-
-        <Button
-            android:id="@+id/btnDoor2Close"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Close" />
-    </LinearLayout>
-
-    <!-- 3 doors -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Door 3"
-        android:textStyle="bold"
-        android:paddingTop="8dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btnDoor3Open"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Open" />
-
-        <Button
-            android:id="@+id/btnDoor3Close"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Close" />
-    </LinearLayout>
-
-    <!-- 4 doors -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Door 4"
-        android:textStyle="bold"
-        android:paddingTop="8dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btnDoor4Open"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Open" />
-
-        <Button
-            android:id="@+id/btnDoor4Close"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Close" />
-    </LinearLayout>
-
-    <!-- 5 doors -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Door 5"
-        android:textStyle="bold"
-        android:paddingTop="8dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btnDoor5Open"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Open" />
-
-        <Button
-            android:id="@+id/btnDoor5Close"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Close" />
-    </LinearLayout>
-
-    <!-- 6 doors -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Door 6"
-        android:textStyle="bold"
-        android:paddingTop="8dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btnDoor6Open"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Open" />
-
-        <Button
-            android:id="@+id/btnDoor6Close"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Close" />
-    </LinearLayout>
-
-    <!-- Sprinklers -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Water Sprinklers"
-        android:textStyle="bold"
-        android:paddingTop="16dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnSprinklerOn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="ON" />
-
-        <Button
-            android:id="@+id/btnSprinklerOff"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="OFF" />
-    </LinearLayout>
-
-</LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Door 1"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="start" />
-    <ToggleButton
-        android:id="@+id/toggleDoor1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textOn="Close"
-        android:textOff="Open"
-        android:layout_marginBottom="8dp" />
-
-
-</ScrollView>
-
+</RelativeLayout>
