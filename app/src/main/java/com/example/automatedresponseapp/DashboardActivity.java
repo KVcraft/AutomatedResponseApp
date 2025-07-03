@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,36 +58,25 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
-        bottomNav.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
-            Intent intent = null;
+        LinearLayout navControl = findViewById(R.id.nav_control);
+        LinearLayout navNotification = findViewById(R.id.nav_notification);
+        LinearLayout navProfile = findViewById(R.id.nav_profile);
 
-            switch (id) {
-                case R.id.nav_dashboard:
-                    return true;
-                case R.id.nav_control:
-                    intent = new Intent(this, ControlPanelActivity.class);
-                    break;
-                case R.id.nav_notification:
-                    intent = new Intent(this, NotificationActivity.class);
-                    break;
-                case R.id.nav_profile:
-                    intent = new Intent(this, ProfileActivity.class);
-                    break;
-                default:
-                    return false;
-            }
-
-            if (intent != null) {
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                return true;
-            }
-            return false;
+        navControl.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, ControlPanelActivity.class);
+            startActivity(intent);
         });
-        */
+
+        navNotification.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, NotificationActivity.class);
+            startActivity(intent);
+        });
+
+        navProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void updateUI(int waterMM, float temp, int pressure) {

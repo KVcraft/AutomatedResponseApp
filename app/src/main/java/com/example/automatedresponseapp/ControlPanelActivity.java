@@ -1,7 +1,10 @@
 package com.example.automatedresponseapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,5 +37,35 @@ public class ControlPanelActivity extends AppCompatActivity {
         });
 
         // Add similar listeners for other toggles and logout if needed
+        LinearLayout navControl = findViewById(R.id.nav_control);
+        LinearLayout navNotification = findViewById(R.id.nav_notification);
+        LinearLayout navProfile = findViewById(R.id.nav_profile);
+        LinearLayout navDashboard = findViewById(R.id.nav_dashboard); // Make sure you also have this ID in your XML
+
+        navDashboard.setOnClickListener(v -> {
+            Intent intent = new Intent(ControlPanelActivity.this, DashboardActivity.class);
+            startActivity(intent);
+            finish(); // Optional: finish current activity to prevent back stack clutter
+        });
+
+        navControl.setOnClickListener(v -> {
+            // You're already in Control Panel
+            Toast.makeText(ControlPanelActivity.this, "You are already on Control Panel", Toast.LENGTH_SHORT).show();
+        });
+
+        navNotification.setOnClickListener(v -> {
+            Intent intent = new Intent(ControlPanelActivity.this, NotificationActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        navProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(ControlPanelActivity.this, ProfileActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
     }
+
+
 }
