@@ -32,12 +32,14 @@ public class DashboardActivity extends AppCompatActivity {
 
         userKey = getIntent().getStringExtra("userKey");
 
+        // Initialize views
         waterLevel = findViewById(R.id.waterLevel);
         tvWaterMM = findViewById(R.id.tvWaterMM);
         tvTemperature = findViewById(R.id.tvTemperature);
         tvPressure = findViewById(R.id.tvPressure);
         btnLogout = findViewById(R.id.btnLogout);
 
+        // Firebase sensor data listener
         DatabaseReference sensorRef = FirebaseDatabase.getInstance().getReference("Sensors");
         sensorRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,6 +61,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        // Bottom Navigation
         findViewById(R.id.nav_control).setOnClickListener(v -> {
             Intent intent = new Intent(this, ControlPanelActivity.class);
             intent.putExtra("userKey", userKey);
@@ -80,8 +83,10 @@ public class DashboardActivity extends AppCompatActivity {
             finish();
         });
 
+        // Just go back to MainActivity without clearing saved credentials
         btnLogout.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         });
