@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,77 +20,53 @@ public class DashboardActivity extends AppCompatActivity {
 
     View waterLevel;
     TextView tvWaterMM, tvTemperature, tvPressure;
-    ImageButton btnLogout;
-    int maxTankHeightDp = 200;
-    String userKey;
+    int maxTankHeightDp = 200; // height of tankFrame in dp
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        userKey = getIntent().getStringExtra("userKey");
-
         waterLevel = findViewById(R.id.waterLevel);
         tvWaterMM = findViewById(R.id.tvWaterMM);
         tvTemperature = findViewById(R.id.tvTemperature);
         tvPressure = findViewById(R.id.tvPressure);
-        btnLogout = findViewById(R.id.btnLogout);
 
+        // Firebase reference to lowercase keys
         DatabaseReference sensorRef = FirebaseDatabase.getInstance().getReference("Sensors");
+
         sensorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Integer waterMM = snapshot.child("waterLevel").getValue(Integer.class);
-                Float temp = snapshot.child("temperature").getValue(Float.class);
-                Integer press = snapshot.child("pressure").getValue(Integer.class);
+                try {
+                    Integer waterMM = snapshot.child("waterLevel").getValue(Integer.class);
+                    Integer temperature = snapshot.child("temperature").getValue(Integer.class);
+                    Integer pressure = snapshot.child("pressure").getValue(Integer.class);
 
-                if (waterMM != null && temp != null && press != null) {
-                    updateUI(waterMM, temp, press);
-                } else {
-                    Toast.makeText(DashboardActivity.this, "Sensor data missing", Toast.LENGTH_SHORT).show();
+                    if (waterMM != null && temperature != null && pressure != null) {
+                        updateUI(waterMM, temperature, pressure);
+                    } else {
+                        Toast.makeText(DashboardActivity.this, "Incomplete sensor data", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(DashboardActivity.this, "Data format error", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DashboardActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DashboardActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
-
-        findViewById(R.id.nav_control).setOnClickListener(v -> {
-            Intent intent = new Intent(this, ControlPanelActivity.class);
-            intent.putExtra("userKey", userKey);
-            startActivity(intent);
-            finish();
-        });
-
-        findViewById(R.id.nav_notification).setOnClickListener(v -> {
-            Intent intent = new Intent(this, NotificationActivity.class);
-            intent.putExtra("userKey", userKey);
-            startActivity(intent);
-            finish();
-        });
-
-        findViewById(R.id.nav_profile).setOnClickListener(v -> {
-            Intent intent = new Intent(this, ProfileActivity.class);
-            intent.putExtra("userKey", userKey);
-            startActivity(intent);
-            finish();
-        });
-
-        btnLogout.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
         });
     }
 
-    private void updateUI(int waterMM, float temp, int pressure) {
+    private void updateUI(int waterMM, int temp, int pressure) {
         float scale = getResources().getDisplayMetrics().density;
         int tankHeightPx = (int) (maxTankHeightDp * scale + 0.5f);
 
-        if (waterMM > 1000) waterMM = 1000;
+        // Limit the value range for visualization
+        waterMM = Math.max(0, Math.min(waterMM, 1000));
         int fillHeightPx = (int) (tankHeightPx * (waterMM / 1000f));
 
         ViewGroup.LayoutParams params = waterLevel.getLayoutParams();

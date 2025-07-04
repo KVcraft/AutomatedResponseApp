@@ -1,11 +1,11 @@
 package com.example.automatedresponseapp;
 
 public class SensorData {
-    public String temperature;
-    public String pressure;
-    public String waterLevel;
+    public int Temperature;
+    public int Pressure;
+    public int WaterLevel;
 
     public SensorData() {
-        // Needed for Firebase
+        // Required default constructor
     }
 }
