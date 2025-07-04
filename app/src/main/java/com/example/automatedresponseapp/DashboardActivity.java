@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,68 +21,76 @@ public class DashboardActivity extends AppCompatActivity {
 
     View waterLevel;
     TextView tvWaterMM, tvTemperature, tvPressure;
-
-    int maxTankHeightDp = 200; // same as tankFrame height
+    ImageButton btnLogout;
+    int maxTankHeightDp = 200;
+    String userKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        userKey = getIntent().getStringExtra("userKey");
+
         waterLevel = findViewById(R.id.waterLevel);
         tvWaterMM = findViewById(R.id.tvWaterMM);
         tvTemperature = findViewById(R.id.tvTemperature);
         tvPressure = findViewById(R.id.tvPressure);
+        btnLogout = findViewById(R.id.btnLogout);
 
-        // ✅ Firebase sensor reference
         DatabaseReference sensorRef = FirebaseDatabase.getInstance().getReference("Sensors");
-
         sensorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    Integer waterMM = snapshot.child("waterLevel").getValue(Integer.class);
-                    Float temp = snapshot.child("temperature").getValue(Float.class);
-                    Integer press = snapshot.child("pressure").getValue(Integer.class);
+                Integer waterMM = snapshot.child("waterLevel").getValue(Integer.class);
+                Float temp = snapshot.child("temperature").getValue(Float.class);
+                Integer press = snapshot.child("pressure").getValue(Integer.class);
 
-                    if (waterMM != null && temp != null && press != null) {
-                        updateUI(waterMM, temp, press);
-                    }
+                if (waterMM != null && temp != null && press != null) {
+                    updateUI(waterMM, temp, press);
+                } else {
+                    Toast.makeText(DashboardActivity.this, "Sensor data missing", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DashboardActivity.this, "Failed to load data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DashboardActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
-        LinearLayout navControl = findViewById(R.id.nav_control);
-        LinearLayout navNotification = findViewById(R.id.nav_notification);
-        LinearLayout navProfile = findViewById(R.id.nav_profile);
-
-        navControl.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, ControlPanelActivity.class);
+        findViewById(R.id.nav_control).setOnClickListener(v -> {
+            Intent intent = new Intent(this, ControlPanelActivity.class);
+            intent.putExtra("userKey", userKey);
             startActivity(intent);
+            finish();
         });
 
-        navNotification.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, NotificationActivity.class);
+        findViewById(R.id.nav_notification).setOnClickListener(v -> {
+            Intent intent = new Intent(this, NotificationActivity.class);
+            intent.putExtra("userKey", userKey);
             startActivity(intent);
+            finish();
         });
 
-        navProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+        findViewById(R.id.nav_profile).setOnClickListener(v -> {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("userKey", userKey);
             startActivity(intent);
+            finish();
         });
 
+        btnLogout.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void updateUI(int waterMM, float temp, int pressure) {
         float scale = getResources().getDisplayMetrics().density;
         int tankHeightPx = (int) (maxTankHeightDp * scale + 0.5f);
 
-        // Clamp max
         if (waterMM > 1000) waterMM = 1000;
         int fillHeightPx = (int) (tankHeightPx * (waterMM / 1000f));
 

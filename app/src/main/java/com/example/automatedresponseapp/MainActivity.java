@@ -55,18 +55,24 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     boolean found = false;
 
+                    // Inside your login success block
                     for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                         String dbUsername = userSnapshot.child("username").getValue(String.class);
                         String dbPassword = userSnapshot.child("password").getValue(String.class);
 
                         if (enteredUsername.equals(dbUsername) && enteredPassword.equals(dbPassword)) {
                             found = true;
+
+                            // Get the Firebase UID of the matched user
+                            String userKey = userSnapshot.getKey();
+
                             Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                            // Navigate to dashboard
+                            // ✅ Pass userKey to Dashboard
                             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                            intent.putExtra("userKey", userKey);
                             startActivity(intent);
-                            finish(); // Close login screen
+                            finish();
                             break;
                         }
                     }

@@ -43,7 +43,7 @@ public class ControlPanelActivity extends AppCompatActivity {
         toggleDoor4 = findViewById(R.id.toggleDoor4);
         toggleDoor5 = findViewById(R.id.toggleDoor5);
         toggleSprinkler = findViewById(R.id.toggleSprinkler);
-        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout = findViewById(R.id.btnLogout)            ;
 
         // Initialize Firebase reference
         databaseRef = FirebaseDatabase.getInstance().getReference("Door");
