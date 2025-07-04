@@ -6,17 +6,35 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ControlPanelActivity extends AppCompatActivity {
 
     ToggleButton toggleDoor1, toggleDoor2, toggleDoor3, toggleDoor4, toggleDoor5, toggleSprinkler;
     ImageButton btnLogout;
 
+    DatabaseReference databaseRef;
+
+    // Firebase keys
+    private final String KEY_FRONT_DOOR = "frontDoor";
+    private final String KEY_BACK_DOOR = "backDoor";
+    private final String KEY_MAIN_GATE = "mainGate";
+    private final String KEY_BUNK_DOOR = "bunkDoor";
+    private final String KEY_HILL_GATE = "hillGate";
+    private final String KEY_WATER_SPRINKLER = "waterSpinner";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_control_panel); // Link to your XML
+        setContentView(R.layout.activity_control_panel);
 
         // Initialize toggle buttons
         toggleDoor1 = findViewById(R.id.toggleDoor1);
@@ -27,29 +45,103 @@ public class ControlPanelActivity extends AppCompatActivity {
         toggleSprinkler = findViewById(R.id.toggleSprinkler);
         btnLogout = findViewById(R.id.btnLogout);
 
-        // Example: Toggle listener
-        toggleDoor1.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                // Close door logic
-            } else {
-                // Open door logic
+        // Initialize Firebase reference
+        databaseRef = FirebaseDatabase.getInstance().getReference("Door");
+
+        // Load current statuses from Firebase and listen for real-time updates
+        loadStatusesFromFirebase();
+
+        // Set listeners to update Firebase when toggles change by user
+        setupToggleListeners();
+
+        // Bottom navigation setup
+        setupBottomNavigation();
+    }
+
+    private void loadStatusesFromFirebase() {
+        // For each door and sprinkler, listen for real-time updates and update toggle accordingly
+        updateToggleFromFirebase(KEY_FRONT_DOOR, toggleDoor1);
+        updateToggleFromFirebase(KEY_BACK_DOOR, toggleDoor2);
+        updateToggleFromFirebase(KEY_MAIN_GATE, toggleDoor3);
+        updateToggleFromFirebase(KEY_BUNK_DOOR, toggleDoor4);
+        updateToggleFromFirebase(KEY_HILL_GATE, toggleDoor5);
+        updateToggleFromFirebase(KEY_WATER_SPRINKLER, toggleSprinkler);
+    }
+
+    private void updateToggleFromFirebase(String key, ToggleButton toggle) {
+        databaseRef.child(key).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String status = snapshot.getValue(String.class);
+                if (status != null) {
+                    boolean isOpen = status.equalsIgnoreCase("open");
+                    // IMPORTANT: Remove listener temporarily to avoid infinite loop
+                    toggle.setOnCheckedChangeListener(null);
+                    toggle.setChecked(isOpen);
+                    // Re-attach listener after programmatic update
+                    toggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        updateFirebaseStatus(key, isChecked);
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ControlPanelActivity.this, "Failed to load " + key + " status.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        // Add similar listeners for other toggles and logout if needed
+    private void setupToggleListeners() {
+        toggleDoor1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            updateFirebaseStatus(KEY_FRONT_DOOR, isChecked);
+        });
+
+        toggleDoor2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            updateFirebaseStatus(KEY_BACK_DOOR, isChecked);
+        });
+
+        toggleDoor3.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            updateFirebaseStatus(KEY_MAIN_GATE, isChecked);
+        });
+
+        toggleDoor4.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            updateFirebaseStatus(KEY_BUNK_DOOR, isChecked);
+        });
+
+        toggleDoor5.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            updateFirebaseStatus(KEY_HILL_GATE, isChecked);
+        });
+
+        toggleSprinkler.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            updateFirebaseStatus(KEY_WATER_SPRINKLER, isChecked);
+        });
+    }
+
+    private void updateFirebaseStatus(String key, boolean isOpen) {
+        String status = isOpen ? "open" : "close";
+        databaseRef.child(key).setValue(status)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(ControlPanelActivity.this, key + " set to " + status, Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(ControlPanelActivity.this, "Failed to update " + key, Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void setupBottomNavigation() {
         LinearLayout navControl = findViewById(R.id.nav_control);
         LinearLayout navNotification = findViewById(R.id.nav_notification);
         LinearLayout navProfile = findViewById(R.id.nav_profile);
-        LinearLayout navDashboard = findViewById(R.id.nav_dashboard); // Make sure you also have this ID in your XML
+        LinearLayout navDashboard = findViewById(R.id.nav_dashboard);
 
         navDashboard.setOnClickListener(v -> {
             Intent intent = new Intent(ControlPanelActivity.this, DashboardActivity.class);
             startActivity(intent);
-            finish(); // Optional: finish current activity to prevent back stack clutter
+            finish();
         });
 
         navControl.setOnClickListener(v -> {
-            // You're already in Control Panel
             Toast.makeText(ControlPanelActivity.this, "You are already on Control Panel", Toast.LENGTH_SHORT).show();
         });
 
@@ -64,8 +156,5 @@ public class ControlPanelActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
     }
-
-
 }

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/controlPanelRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA">
+    android:background="#F8F9FA"
+    tools:context=".ControlPanelActivity">
 
-
-    <!-- Title Bar with Divider -->
+    <!-- Title Bar with Logout Button -->
     <LinearLayout
+        android:id="@+id/topSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -27,7 +29,8 @@
                 android:layout_weight="1"
                 android:text="Control Panel"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="#000" />
 
             <ImageButton
                 android:id="@+id/btnLogout"
@@ -39,39 +42,39 @@
                 android:src="@drawable/ic_logout" />
         </LinearLayout>
 
-        <!-- Divider Line Below Title -->
+        <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="10dp"
             android:background="#BDBDBD" />
     </LinearLayout>
 
-
-    <!-- Scrollable Content -->
+    <!-- Scrollable Content Area -->
     <ScrollView
+        android:id="@+id/scrollViewContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/customBottomNav"
-        android:layout_below="@+id/tvControlTitle"
-        android:layout_marginTop="80dp"
-        android:padding="16dp"
-        tools:ignore="NotSibling">
+        android:layout_below="@id/topSection"
+        android:layout_above="@id/customBottomNav"
+        android:padding="16dp">
 
         <LinearLayout
+            android:id="@+id/linearLayoutContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <!-- Door 1 -->
+            <!-- Door 1 (frontDoor) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Door 1"
+                android:text="Front Door"
                 android:textStyle="bold"
+                android:textColor="#000"
                 android:layout_gravity="start"
                 android:layout_marginTop="12dp" />
+
             <ToggleButton
                 android:id="@+id/toggleDoor1"
                 android:layout_width="match_parent"
@@ -81,14 +84,16 @@
                 android:background="@drawable/toggle_button_background"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Door 2 -->
+            <!-- Door 2 (backDoor) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Door 2"
+                android:text="Back Door"
                 android:textStyle="bold"
+                android:textColor="#000"
                 android:layout_gravity="start"
                 android:layout_marginTop="12dp" />
+
             <ToggleButton
                 android:id="@+id/toggleDoor2"
                 android:layout_width="match_parent"
@@ -98,14 +103,16 @@
                 android:background="@drawable/toggle_button_background"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Door 3 -->
+            <!-- Door 3 (mainGate) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Door 3"
+                android:text="Main Gate"
                 android:textStyle="bold"
+                android:textColor="#000"
                 android:layout_gravity="start"
                 android:layout_marginTop="12dp" />
+
             <ToggleButton
                 android:id="@+id/toggleDoor3"
                 android:layout_width="match_parent"
@@ -115,14 +122,16 @@
                 android:background="@drawable/toggle_button_background"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Door 4 -->
+            <!-- Door 4 (bunkDoor) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Door 4"
+                android:text="Bunk Door"
                 android:textStyle="bold"
+                android:textColor="#000"
                 android:layout_gravity="start"
                 android:layout_marginTop="12dp" />
+
             <ToggleButton
                 android:id="@+id/toggleDoor4"
                 android:layout_width="match_parent"
@@ -132,14 +141,16 @@
                 android:background="@drawable/toggle_button_background"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Door 5 -->
+            <!-- Door 5 (hillGate) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Door 5"
+                android:text="Hill Gate"
                 android:textStyle="bold"
+                android:textColor="#000"
                 android:layout_gravity="start"
                 android:layout_marginTop="12dp" />
+
             <ToggleButton
                 android:id="@+id/toggleDoor5"
                 android:layout_width="match_parent"
@@ -149,14 +160,16 @@
                 android:background="@drawable/toggle_button_background"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Sprinklers -->
+            <!-- Water Sprinklers -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Water Sprinklers"
                 android:textStyle="bold"
+                android:textColor="#000"
                 android:layout_gravity="start"
                 android:layout_marginTop="16dp" />
+
             <ToggleButton
                 android:id="@+id/toggleSprinkler"
                 android:layout_width="match_parent"
@@ -168,7 +181,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Fixed Bottom Navigation Bar -->
+    <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/customBottomNav"
         android:layout_width="match_parent"
@@ -282,4 +295,5 @@
                 android:layout_marginTop="4dp" />
         </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>
