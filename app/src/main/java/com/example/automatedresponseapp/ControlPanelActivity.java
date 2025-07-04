@@ -56,6 +56,14 @@ public class ControlPanelActivity extends AppCompatActivity {
 
         // Bottom navigation setup
         setupBottomNavigation();
+
+        // Just go back to LoginActivity without clearing saved credentials
+        btnLogout.setOnClickListener(v -> {
+            Intent intent = new Intent(ControlPanelActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void loadStatusesFromFirebase() {

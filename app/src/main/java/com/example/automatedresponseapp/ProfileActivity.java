@@ -77,6 +77,16 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.nav_profile).setOnClickListener(v ->
                 Toast.makeText(this, "You are already on Profile", Toast.LENGTH_SHORT).show()
         );
+
+        ImageButton btnLogout = findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
+
     }
 
     private void loadUserData() {

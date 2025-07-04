@@ -2,6 +2,7 @@ package com.example.automatedresponseapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -75,6 +76,16 @@ public class NotificationActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        ImageButton btnLogout = findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(v -> {
+            Intent intent = new Intent(NotificationActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
+
     }
 
     private void loadNotifications() {
